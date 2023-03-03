@@ -17,7 +17,7 @@
 //下班时间
 #define OFF_WORK_TIME 17
 //一天的最多人数
-#define DAY_ALL_NUMBER 100
+#define DAY_ALL_NUMBER 200
 //柜台的数量
 #define COUNTER_NUMBER 4
 //一个人处理的时间

@@ -49,9 +49,11 @@ void wait_human();
 
 //查看各个柜台
 void one_and_one_counter();
-//查看指定柜台
-void appoint_counter();
-//查看指定时间段
-void appoint_time();
+//查看指定柜台 参数是指是否有条件 有条件就是要指定时间段
+void appoint_counter(bool);
+//查看指定时间段 参数是看哪个柜台 默认0
+void appoint_time(int);
+//查看指定柜台的指定时间段
+void appoint_counter_and_appoint_time();
 
 #endif //BANK_ONE_BANK_H

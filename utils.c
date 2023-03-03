@@ -47,7 +47,8 @@ void detailed_menu() {
     printf("\t\t\t\t\t        5.查看各个柜台     \n");
     printf("\t\t\t\t\t        6.查看指定柜台     \n");
     printf("\t\t\t\t\t        7.查看指定时间段     \n");
-    printf("\t\t\t\t\t         8.返回上一级     \n");
+    printf("\t\t\t\t\t      8.查看指定柜台的指定时间段     \n");
+    printf("\t\t\t\t\t         9.返回上一级     \n");
     printf("\n");
     printf("\t\t\t\t\t请输入功能选项:");
 }

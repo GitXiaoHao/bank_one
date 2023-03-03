@@ -43,6 +43,8 @@ void handle_business() {
                 if (now_counter->complete_business_minute > now_human->into_bank_minute) {
                     //大于 需要等待
                     now_human->wait_time = now_counter->complete_business_minute - now_human->into_bank_minute;
+                } else {
+                    --(now_counter->now_handle_human_number);
                 }
             }
         }
@@ -194,14 +196,14 @@ void all_time_slot() {
     int hour = humans[0]->into_bank_hour;
     for (i = 0; i < DAY_ALL_NUMBER; ++i) {
         if (hour != humans[i]->into_bank_hour) {
-            printf("\n\t-------------------------------%d点-------------------------------\n", hour);
+            printf("\n\t\t-------------------------------%d点-------------------------------\n", hour);
             //已经完成
             print_all_human_information(start, i - 1, 0);
             start = i;
             hour = humans[i]->into_bank_hour;
         }
     }
-    printf("\n\t-------------------------------%d点-------------------------------\n", hour);
+    printf("\n\t\t-------------------------------%d点-------------------------------\n", hour);
     //最后一轮
     print_all_human_information(start, i - 1, 0);
 }
@@ -322,24 +324,29 @@ void one_and_one_counter() {
     //查看各个柜台
     int i;
     for (i = 0; i < COUNTER_NUMBER;) {
-        printf("\n\t--------------------------------柜台%d--------------------------------\n", i + 1);
+        printf("\n\t\t--------------------------------柜台%d--------------------------------\n", i + 1);
         print_all_human_information(0, DAY_ALL_NUMBER, ++i);
     }
 }
 
-void appoint_counter() {
+void appoint_counter(bool is_condition) {
     int num = 0;
     printf("\t\t\t\t\t您要查看的柜台是:");
     scanf("%d", &num);
     if (num <= 0 || num > COUNTER_NUMBER) {
         printf("输入错误!\n");
     } else {
-        printf("\n\t--------------------------------柜台%d--------------------------------\n", num);
+        printf("\n\t\t--------------------------------柜台%d--------------------------------\n", num);
+        if (is_condition) {
+            //如果有条件 现在只有指定时间段的了
+            appoint_time(num);
+            return;
+        }
         print_all_human_information(0, DAY_ALL_NUMBER, num);
     }
 }
 
-void appoint_time() {
+void appoint_time(int num) {
     int time_num = 0;
     printf("\t\t\t\t\t您要查看的时间段是:");
     scanf("%d", &time_num);
@@ -359,7 +366,7 @@ void appoint_time() {
                 start = i;
                 start_loop = true;
             }
-        }else {
+        } else {
             if (now_human->into_bank_hour != time_num) {
                 end = i - 1;
                 break;
@@ -367,7 +374,12 @@ void appoint_time() {
         }
     }
     printf("\n\t-------------------------------%d点-------------------------------\n", time_num);
-    print_all_human_information(start, end, 0);
+    print_all_human_information(start, end, num);
+}
+
+void appoint_counter_and_appoint_time() {
+    //调用之前的 参数改为true
+    appoint_counter(true);
 }
 
 bool choice_function_main(int choice, bool *loop) {
@@ -409,12 +421,15 @@ bool choice_function_detailed(int choice) {
             one_and_one_counter();
             break;
         case 6://查看指定柜台
-            appoint_counter();
+            appoint_counter(false);
             break;
         case 7://查看指定时间段
-            appoint_time();
+            appoint_time(0);
             break;
-        case 8: //返回上一级
+        case 8://查看指定柜台的指定时间段
+            appoint_counter_and_appoint_time();
+            break;
+        case 9: //返回上一级
             return false;
         default:
             printf("请重新输入\n");
