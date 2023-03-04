@@ -214,21 +214,21 @@ void custom_time_slot() {
     int start_minute = 0;
     int end_hour = 0;
     int end_minute = 0;
-    printf("\t\t\t\t\t请输入起始时间(GO_WORK_TIME-OFF_WORK_TIME)：");
+    printf("\t\t\t\t\t请输入起始时间(%d-%d)：",GO_WORK_TIME,OFF_WORK_TIME);
     scanf("%d", &start_hour);
     if (start_hour > OFF_WORK_TIME || start_hour < GO_WORK_TIME) {
         //开始时间错误
         printf("\t\t\t\t\t起始时间错误!\n");
         return;
     }
-    printf("\t\t\t\t\t请输入起始分钟(0-5GO_WORK_TIME)：");
+    printf("\t\t\t\t\t请输入起始分钟(0-59)：");
     scanf("%d", &start_minute);
     if (start_minute > 59 || start_minute < 0) {
         //开始的分钟错误
         printf("\t\t\t\t\t起始分钟错误!\n");
         return;
     }
-    printf("\t\t\t\t\t请输入结束时间(GO_WORK_TIME-OFF_WORK_TIME)：");
+    printf("\t\t\t\t\t请输入结束时间(%d-%d)：",GO_WORK_TIME,OFF_WORK_TIME);
     scanf("%d", &end_hour);
     if (end_hour > OFF_WORK_TIME || end_hour < GO_WORK_TIME) {
         //结束时间错误
@@ -240,7 +240,7 @@ void custom_time_slot() {
         printf("结束时间大于开始时间!\n");
         return;
     }
-    printf("\t\t\t\t\t请输入结束分钟(0-5GO_WORK_TIME)：");
+    printf("\t\t\t\t\t请输入结束分钟(0-59)：");
     scanf("%d", &end_minute);
     if (end_minute > 59 || end_minute < 0) {
         //结束的分钟错误
